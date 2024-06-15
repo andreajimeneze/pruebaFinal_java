@@ -5,15 +5,14 @@ import modelo.CategoriaEnum;
 import modelo.Cliente;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
 public class ArchivoServicio extends Exportador {
-    ClienteServicio clienteServicio = new ClienteServicio();
+
     String ruta = "C:/Users/andre/Desktop/";
 
-    public void cargarDatos(String fileName)  {
+    public void cargarDatos(String fileName, List<Cliente> listaClientes)  {
 
         String archivo = ruta + fileName;
         try (FileReader fr = new FileReader(archivo);
@@ -25,7 +24,7 @@ public class ArchivoServicio extends Exportador {
                 if(dato.length == 5) {
 
                     Cliente cliente = new Cliente(dato[0], dato[1], dato[2], dato[3], CategoriaEnum.valueOf(dato[4].toUpperCase()));
-                    clienteServicio.agregarCliente(cliente);
+                    listaClientes.add(cliente);
                 }
             }
             System.out.println("Clientes cargados correctamente");
@@ -33,17 +32,12 @@ public class ArchivoServicio extends Exportador {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-
-        System.out.println(clienteServicio.getListaClientes());
     }
 
-    public ClienteServicio getListaServicio() {
-        return clienteServicio;
-    }
     @Override
     public void exportar(String fileName, List<Cliente> listaClientes) throws IOException {
 
-        File archivo = new File(ruta + fileName);
+        File archivo = new File(ruta + fileName.concat(".txt"));
 
         if(!archivo.exists()) {
             archivo.createNewFile();
