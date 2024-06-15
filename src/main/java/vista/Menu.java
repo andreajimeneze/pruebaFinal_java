@@ -23,7 +23,7 @@ public class Menu {
     public void iniciarMenu() throws IOException, InterruptedException {
         int opcion;
         do {
-            System.out.println(ColorConsola.TEXTO_MAGENTA + "*********** M E N U **********");
+            System.out.println(ColorConsola.TEXTO_MAGENTA + "******* M E N U  P R I N C I P A L *******");
             System.out.println("1. Listar Clientes");
             System.out.println("2. Agregar Cliente");
             System.out.println("3. Editar Cliente");
@@ -62,7 +62,8 @@ public class Menu {
                 iniciarMenu();
                 break;
             case 5:
-                archivoServicio.exportar(FILE_NAME, clienteServicio.getListaClientes());
+//                archivoServicio.exportar(FILE_NAME, clienteServicio.getListaClientes());
+                exportarDatos();
                 iniciarMenu();
                 break;
             case 6:
@@ -78,7 +79,7 @@ public class Menu {
 
 
     public void agregarCliente() {
-        System.out.println("************* Crear Cliente *************");
+        System.out.println(ColorConsola.TEXTO_CYAN + "************* C r e a r  C l i e n t e *************");
 
         System.out.println("Ingresa RUN del Cliente: ");
         String run = sc.nextLine();
@@ -89,7 +90,7 @@ public class Menu {
         System.out.println("Ingresa años como Cliente: ");
         String antiguedad = sc.nextLine();
 
-        System.out.println("**********************************************");
+        System.out.println(" ");
         Cliente clienteAgregado = new Cliente(run, nombre, apellido, antiguedad, CategoriaEnum.ACTIVO);
 
         clienteServicio.agregarCliente(clienteAgregado);
@@ -97,14 +98,14 @@ public class Menu {
 
     public void editarCliente() {
         int opcion;
-        System.out.println("************* E D I T A R  C L I E N T E *************");
+        System.out.println(ColorConsola.TEXTO_CYAN + "******** E d i t a r  C l i e n t e ********");
 
         do {
             System.out.println("Seleccione qué desea hacer: ");
             System.out.println("1.-Cambiar el estado del Cliente ");
             System.out.println("2.-Editar los datos ingresados del Cliente");
             System.out.println(" ");
-            System.out.println("Ingrese una opción: ");
+            System.out.println(ColorConsola.TEXTO_DEFAULT + "Ingrese una opción: ");
             opcion = sc.nextInt();
             sc.nextLine();
             System.out.println(" ");
@@ -112,7 +113,7 @@ public class Menu {
 
         System.out.println("Ingresa RUN del Cliente a editar: ");
         String runCliente = sc.nextLine();
-
+        System.out.println(" ");
         Cliente clienteEncontrado = clienteServicio.buscarRun(clienteServicio.getListaClientes(), runCliente);
 
         if (clienteEncontrado != null) {
@@ -122,31 +123,46 @@ public class Menu {
                 editarDatos(clienteEncontrado);
             }
         } else {
-            System.out.println("El run no existe");
+            System.out.println(ColorConsola.TEXTO_ROJO + "El cliente no existe");
+            System.out.println(" ");
         }
 
     }
 
     public void editarEstado(Cliente clienteEncontrado) {
-        System.out.println("------ Actualizando estado del Cliente ------");
-        System.out.println("El estado actual del cliente es: " + clienteEncontrado.getCategoria());
-        System.out.println("1.-Si desea cambiar el estado del Cliente a Inactivo");
+        System.out.println(ColorConsola.TEXTO_AMARILLO + "------ Actualizando estado del Cliente ------");
+        System.out.println(" ");
+        System.out.println(ColorConsola.TEXTO_VERDE +"El estado actual del cliente es: " + clienteEncontrado.getCategoria());
+        System.out.println(" ");
+        System.out.println(ColorConsola.TEXTO_CYAN + "1.-Si desea cambiar el estado del Cliente a Inactivo");
         System.out.println("2.-Si desea mantener el estado del cliente Activo");
+        System.out.println(" ");
+
         int opcion = sc.nextInt();
-        if (opcion == 1) {
-            clienteEncontrado.setCategoria(CategoriaEnum.INACTIVO);
-        } else if (opcion == 2) {
-            clienteEncontrado.setCategoria(CategoriaEnum.ACTIVO);
-        }
+
+            if (opcion == 1) {
+                clienteEncontrado.setCategoria(CategoriaEnum.INACTIVO);
+                System.out.println("Dato modificado con éxito");
+                System.out.println(" ");
+            } else if (opcion == 2) {
+                clienteEncontrado.setCategoria(CategoriaEnum.ACTIVO);
+                System.out.println("Dato modificado con éxito");
+                System.out.println(" ");
+            } else {
+                System.out.println(ColorConsola.TEXTO_ROJO + "Opción no válida");
+                System.out.println(" ");
+            }
     }
 
     public void editarDatos(Cliente clienteEncontrado) {
         int opcion;
-        System.out.println("------ Actualizando datos del Cliente ------");
-        System.out.println("1.-El RUN del Cliente es: " + clienteEncontrado.getRunCliente());
+        System.out.println(ColorConsola.TEXTO_AMARILLO + "------ Actualizando datos del Cliente ------");
+        System.out.println(" ");
+        System.out.println(ColorConsola.TEXTO_VERDE + "1.-El RUN del Cliente es: " + clienteEncontrado.getRunCliente());
         System.out.println("2.-El nombre del Cliente es: " + clienteEncontrado.getNombreCliente());
         System.out.println("3.-El apellido del Cliente es: " + clienteEncontrado.getApellidoCliente());
-        System.out.println("4.-La antigüedad del Cliente es de: " + clienteEncontrado.getAnioCliente());
+        System.out.println("4.-La antigüedad del Cliente es de: " + clienteEncontrado.getAnioCliente() + "años");
+        System.out.println(" ");
 
         do {
             System.out.println("Ingrese opcion a editar de los datos del cliente: ");
@@ -159,35 +175,49 @@ public class Menu {
                 System.out.println("Ingrese nuevo RUN del Cliente: ");
                 String nuevoRun = sc.nextLine();
                 clienteEncontrado.setRunCliente(nuevoRun);
-                System.out.println("Dato modificado correctamente");
+                System.out.println(ColorConsola.TEXTO_VERDE + "Dato modificado correctamente");
                 break;
             case 2:
                 System.out.println("Ingrese nuevo nombre del Cliente: ");
                 String nuevoNombre = sc.nextLine();
                 clienteEncontrado.setNombreCliente(nuevoNombre);
-                System.out.println("Dato modificado correctamente");
+                System.out.println(ColorConsola.TEXTO_VERDE + "Dato modificado correctamente");
                 break;
             case 3:
                 System.out.println("Ingrese nuevo apellido del Cliente: ");
                 String nuevoApellido = sc.nextLine();
                 clienteEncontrado.setApellidoCliente(nuevoApellido);
-                System.out.println("Dato modificado correctamente");
+                System.out.println(ColorConsola.TEXTO_VERDE + "Dato modificado correctamente");
                 break;
             case 4:
                 System.out.println("Ingrese nueva antigüedad del Cliente: ");
                 String nuevoAntiguedad = sc.nextLine();
                 clienteEncontrado.setAnioCliente(nuevoAntiguedad);
-                System.out.println("Dato modificado correctamente");
+                System.out.println(ColorConsola.TEXTO_VERDE + "Dato modificado correctamente");
                 break;
             default:
-                System.out.println("opción no válida");
+                System.out.println(ColorConsola.TEXTO_ROJO + "opción no válida");
                 editarDatos(clienteEncontrado);
+
         }
     }
+
+    public void exportarDatos() throws IOException {
+        int opcion;
+        System.out.println(ColorConsola.TEXTO_CYAN + "************ E x p o r t a r  D a t o s ************");
+        do {
+            System.out.println("Seleccione el formato a exportar:");
+            System.out.println("1.-Formato csv");
+            System.out.println("2.-Formato txt");
+            System.out.println(" ");
+
+            System.out.println("Ingrese una opción para exportar:");
+            opcion = sc.nextInt();
+        } while(opcion < 1 || opcion > 2);
+
+        archivoServicio.exportar(FILE_NAME, clienteServicio.getListaClientes(), opcion);
+    }
 }
-
-
-
 
 
 

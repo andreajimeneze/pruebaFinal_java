@@ -3,12 +3,14 @@ package servicio;
 import lombok.Data;
 import modelo.CategoriaEnum;
 import modelo.Cliente;
+import utilidades.ColorConsola;
+import utilidades.Utilidad;
 
 import java.io.*;
 import java.util.List;
 
 @Data
-public class ArchivoServicio extends Exportador {
+public class ArchivoServicio {
 
     String ruta = "C:/Users/andre/Desktop/";
 
@@ -27,36 +29,45 @@ public class ArchivoServicio extends Exportador {
                     listaClientes.add(cliente);
                 }
             }
-            System.out.println("Clientes cargados correctamente");
+            System.out.println(ColorConsola.TEXTO_VERDE + "Clientes cargados correctamente");
             System.out.println();
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    @Override
-    public void exportar(String fileName, List<Cliente> listaClientes) throws IOException {
+//    @Override
+    public void exportar(String fileName, List<Cliente> listaClientes,int opcion) throws IOException {
+        ExportadorTxt exTXT = new ExportadorTxt();
+        ExportadorCsv exCSV = new ExportadorCsv();
 
-        File archivo = new File(ruta + fileName.concat(".txt"));
-
-        if(!archivo.exists()) {
-            archivo.createNewFile();
-            System.out.println("Archivo creado con éxito");
-        } else {
-            System.out.println("Archivo ya existe");
-        }
-
-        try (FileWriter fw = new FileWriter(archivo);
-        BufferedWriter bf = new BufferedWriter(fw);) {
-            if(archivo.exists()) {
-                for(int i = 0; i < listaClientes.size(); i++) {
-                    bf.write(listaClientes.get(i).toString());
-                    bf.newLine();
-                }
-            }
-        } catch(Exception e) {
-            System.out.println(e.getMessage());
+        if(opcion == 1) {
+            exCSV.exportar(fileName, listaClientes);
+        } else if (opcion == 2) {
+            exTXT.exportar(fileName, listaClientes);
         }
     }
+
+//        File archivo = new File(ruta + fileName.concat(".txt"));
+//
+//        if(!archivo.exists()) {
+//            archivo.createNewFile();
+//            System.out.println("Archivo creado con éxito");
+//        } else {
+//            System.out.println("Archivo ya existe");
+//        }
+//
+//        try (FileWriter fw = new FileWriter(archivo);
+//        BufferedWriter bf = new BufferedWriter(fw);) {
+//            if(archivo.exists()) {
+//                for(int i = 0; i < listaClientes.size(); i++) {
+//                    bf.write(listaClientes.get(i).toString());
+//                    bf.newLine();
+//                }
+//            }
+//        } catch(Exception e) {
+//            System.out.println(e.getMessage());
+//        }
+//    }
 
 }

@@ -20,8 +20,8 @@ public class ClienteServicio {
             System.out.println(" ");
         }
         for (Cliente cliente : listaClientes) {
-            System.out.println(ColorConsola.TEXTO_VERDE + "********** D A T O S  D E L  C L I E N T E************");
-            System.out.println("RUN del cliente: " + cliente.getRunCliente());
+            System.out.println(ColorConsola.TEXTO_AMARILLO + "******* D a t o s  d e l  C l i e n t e *********");
+            System.out.println(ColorConsola.TEXTO_VERDE + "RUN del cliente: " + cliente.getRunCliente());
             System.out.println("Nombre del cliente: " + cliente.getNombreCliente());
             System.out.println("Apellido del cliente: " + cliente.getApellidoCliente());
             System.out.println("Años como cliente: " + cliente.getAnioCliente());
@@ -33,7 +33,8 @@ public class ClienteServicio {
     public void agregarCliente(Cliente cliente) {
 
         listaClientes.add(cliente);
-        System.out.println("Cliente agregado exitosamente");
+        System.out.println(ColorConsola.TEXTO_VERDE + "Cliente agregado exitosamente");
+        System.out.println(" ");
     }
 
     public void editarCliente(Cliente clienteEditado, String rut) {
@@ -42,7 +43,7 @@ public class ClienteServicio {
 
         }
         listaClientes.add(clienteEditado);
-        System.out.println("Cliente editado exitosamente");
+        System.out.println(ColorConsola.TEXTO_VERDE + "Cliente editado exitosamente");
         System.out.println(" ");
     }
 

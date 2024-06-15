@@ -1,12 +1,35 @@
 package servicio;
 
 import modelo.Cliente;
+import utilidades.ColorConsola;
+import utilidades.Utilidad;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
 public class ExportadorTxt extends Exportador {
     @Override
-    public void exportar(String fileName, List<Cliente> listaClientes) {
-        System.out.println("este método TAMBIÉN es heredado de Exportador");
+    public void exportar(String fileName, List<Cliente> listaClientes) throws IOException {
+        String ruta = "C:/Users/andre/Desktop/";;
+        File archivo = new File(ruta + fileName.concat(".txt"));
+
+        Utilidad.crearArchivo(archivo);
+
+        try (FileWriter fw = new FileWriter(archivo);
+             BufferedWriter bf = new BufferedWriter(fw);) {
+            if(archivo.exists()) {
+                for(int i = 0; i < listaClientes.size(); i++) {
+                    bf.write(listaClientes.get(i).toString());
+                    bf.newLine();
+                }
+            }
+            System.out.println(ColorConsola.TEXTO_VERDE +  "Archivo .TXT creado con éxito");
+            System.out.println(" ");
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
