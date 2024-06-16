@@ -14,8 +14,6 @@ import java.util.Scanner;
 public class Menu {
     ClienteServicio clienteServicio = new ClienteServicio();
     ArchivoServicio archivoServicio = new ArchivoServicio();
-    ExportadorCsv exportarCsv = new ExportadorCsv();
-    ExportadorTxt exportarTxt = new ExportadorTxt();
     Scanner sc = new Scanner(System.in);
     String FILE_NAME = "Clientes";
     String FILE_NAME_1 = "DBClientes.csv";
@@ -61,7 +59,7 @@ public class Menu {
                 iniciarMenu();
                 break;
             case 4:
-                archivoServicio.cargarDatos(FILE_NAME_1, clienteServicio.getListaClientes());
+                archivoServicio.cargarDatos(FILE_NAME_1, clienteServicio.getListaClientes(), sc);
                 iniciarMenu();
                 break;
             case 5:
@@ -155,8 +153,7 @@ public class Menu {
                 System.out.println("Ingrese una opción: ");
                 opcion = sc.nextInt();
             } catch(Exception e) {
-                System.out.println(ColorConsola.TEXTO_ROJO + "Error: Debe ingresar un valor numérico");
-                System.out.println();
+                Utilidad.mensaje(ColorConsola.TEXTO_ROJO + "Error: Debe ingresar un valor numérico");
                 sc.next();
             }
         } while(opcion < 1 || opcion > 2);
@@ -186,7 +183,7 @@ public class Menu {
                 opcion = sc.nextInt();
                 sc.nextLine();
             } catch(Exception e) {
-                System.out.println(ColorConsola.TEXTO_ROJO + "Error: Debe ingresar un valor numérico");
+                Utilidad.mensaje(ColorConsola.TEXTO_ROJO + "Error: Debe ingresar un valor numérico");
                 sc.next();
             }
         } while (opcion < 1 || opcion > 4);
@@ -225,7 +222,7 @@ public class Menu {
             System.out.println();
 
             try {
-                System.out.println("Ingrese una opción para exportar:");
+                System.out.println(ColorConsola.TEXTO_DEFAULT + "Ingrese una opción para exportar:");
                 opcion = sc.nextInt();
                 sc.nextLine();
             } catch(Exception e) {

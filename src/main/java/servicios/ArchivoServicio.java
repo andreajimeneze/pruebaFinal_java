@@ -7,13 +7,17 @@ import utilidades.ColorConsola;
 import utilidades.Utilidad;
 import java.io.*;
 import java.util.List;
+import java.util.Scanner;
 
 @Data
 public class ArchivoServicio {
-
+//    Scanner sc = new Scanner(System.in);
     String ruta = "C:/Users/andre/Desktop/";
 
-    public void cargarDatos(String fileName, List<Cliente> listaClientes)  {
+    public void cargarDatos(String fileName, List<Cliente> listaClientes, Scanner sc)  {
+        Utilidad.mensaje(ColorConsola.TEXTO_AMARILLO + "---------Cargar Datos según Sistema Operativo-----------");
+        System.out.println(ColorConsola.TEXTO_DEFAULT + "Ingresa la ruta donde se encuentra el archivo DBClientes.csv");
+        String ruta = Utilidad.generarRutaPorOS(sc);
         String archivo = ruta + fileName;
 
         try (FileReader fr = new FileReader(archivo);
