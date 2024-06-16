@@ -1,12 +1,15 @@
 package utilidades;
 
-import modelo.Cliente;
-
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
+import java.util.Scanner;
 
 public class Utilidad {
+    public static void mensaje(String mensaje) {
+        System.out.println(ColorConsola.TEXTO_DEFAULT + mensaje);
+        System.out.println(" ");
+    }
+
     public static void limpiarPantalla() {
         for (int i = 0; i < 30; i++) {
             System.out.println(" ");

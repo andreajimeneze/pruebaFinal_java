@@ -1,6 +1,6 @@
-package servicio;
+package servicios;
 
-import modelo.Cliente;
+import modelos.Cliente;
 
 import java.io.IOException;
 import java.util.List;

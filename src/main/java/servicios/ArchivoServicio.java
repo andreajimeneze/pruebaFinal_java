@@ -1,11 +1,10 @@
-package servicio;
+package servicios;
 
 import lombok.Data;
-import modelo.CategoriaEnum;
-import modelo.Cliente;
+import modelos.CategoriaEnum;
+import modelos.Cliente;
 import utilidades.ColorConsola;
 import utilidades.Utilidad;
-
 import java.io.*;
 import java.util.List;
 
@@ -15,8 +14,8 @@ public class ArchivoServicio {
     String ruta = "C:/Users/andre/Desktop/";
 
     public void cargarDatos(String fileName, List<Cliente> listaClientes)  {
-
         String archivo = ruta + fileName;
+
         try (FileReader fr = new FileReader(archivo);
             BufferedReader br = new BufferedReader(fr))  {
             String line;
@@ -24,19 +23,15 @@ public class ArchivoServicio {
                 String[] dato = line.split(",");
 
                 if(dato.length == 5) {
-
                     Cliente cliente = new Cliente(dato[0], dato[1], dato[2], dato[3], CategoriaEnum.valueOf(dato[4].toUpperCase()));
                     listaClientes.add(cliente);
                 }
             }
-            System.out.println(ColorConsola.TEXTO_VERDE + "Clientes cargados correctamente");
-            System.out.println();
+            Utilidad.mensaje(ColorConsola.TEXTO_VERDE + "Clientes cargados correctamente");
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
-
-//    @Override
     public void exportar(String fileName, List<Cliente> listaClientes,int opcion) throws IOException {
         ExportadorTxt exTXT = new ExportadorTxt();
         ExportadorCsv exCSV = new ExportadorCsv();
@@ -47,27 +42,4 @@ public class ArchivoServicio {
             exTXT.exportar(fileName, listaClientes);
         }
     }
-
-//        File archivo = new File(ruta + fileName.concat(".txt"));
-//
-//        if(!archivo.exists()) {
-//            archivo.createNewFile();
-//            System.out.println("Archivo creado con éxito");
-//        } else {
-//            System.out.println("Archivo ya existe");
-//        }
-//
-//        try (FileWriter fw = new FileWriter(archivo);
-//        BufferedWriter bf = new BufferedWriter(fw);) {
-//            if(archivo.exists()) {
-//                for(int i = 0; i < listaClientes.size(); i++) {
-//                    bf.write(listaClientes.get(i).toString());
-//                    bf.newLine();
-//                }
-//            }
-//        } catch(Exception e) {
-//            System.out.println(e.getMessage());
-//        }
-//    }
-
 }
