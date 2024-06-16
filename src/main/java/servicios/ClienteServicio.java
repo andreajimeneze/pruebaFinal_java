@@ -32,6 +32,23 @@ public class ClienteServicio {
             Utilidad.mensaje(ColorConsola.TEXTO_VERDE + "Cliente agregado exitosamente");
         }
     }
+
+    public void editarCliente(Cliente clienteAEditar, String nuevoDato, int opcion) {
+       if(nuevoDato != null && !nuevoDato.isEmpty()) {
+           if(opcion == 1) {
+               clienteAEditar.setRunCliente(nuevoDato);
+           } else if (opcion == 2) {
+               clienteAEditar.setNombreCliente(nuevoDato);
+           } else if (opcion == 3) {
+               clienteAEditar.setApellidoCliente(nuevoDato);
+           } else if (opcion == 4) {
+               clienteAEditar.setAnioCliente(nuevoDato);
+           }
+           Utilidad.mensaje(ColorConsola.TEXTO_VERDE + "Dato modificado correctamente");
+       } else {
+           Utilidad.mensaje(ColorConsola.TEXTO_ROJO + "No puede dejar dato en blanco. Intente editar nuevamente");
+       }
+    }
     public Cliente buscarClienteRun(List<Cliente> listaClientes, String run) {
         for (Cliente cliente : listaClientes) {
             if (cliente.getRunCliente().equals(run)) {

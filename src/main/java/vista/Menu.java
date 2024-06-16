@@ -85,6 +85,7 @@ public class Menu {
         Cliente clienteAAgregar = clienteServicio.buscarClienteRun(clienteServicio.getListaClientes(), run);
         if (clienteServicio.getListaClientes().contains(clienteAAgregar)) {
             Utilidad.mensaje(ColorConsola.TEXTO_ROJO + "No se puede agregar cliente. Run ya existe");
+            agregarCliente();
         } else {
 
             System.out.println("Ingresa Nombre del Cliente: ");
@@ -181,7 +182,7 @@ public class Menu {
             System.out.println();
 
             try {
-                System.out.println("Ingrese opcion a editar de los datos del cliente: ");
+                System.out.println(ColorConsola.TEXTO_DEFAULT + "Ingrese opcion a editar de los datos del cliente: ");
                 opcion = sc.nextInt();
                 sc.nextLine();
             } catch(Exception e) {
@@ -194,26 +195,22 @@ public class Menu {
             case 1:
                 System.out.println("Ingrese nuevo RUN del Cliente: ");
                 String nuevoRun = sc.nextLine();
-                clienteEncontrado.setRunCliente(nuevoRun);
-                Utilidad.mensaje(ColorConsola.TEXTO_VERDE + "Dato modificado correctamente");
+                clienteServicio.editarCliente(clienteEncontrado, nuevoRun, 1);
                 break;
             case 2:
                 System.out.println("Ingrese nuevo nombre del Cliente: ");
                 String nuevoNombre = sc.nextLine();
-                clienteEncontrado.setNombreCliente(nuevoNombre);
-                Utilidad.mensaje(ColorConsola.TEXTO_VERDE + "Dato modificado correctamente");
+                clienteServicio.editarCliente(clienteEncontrado, nuevoNombre, 2);
                 break;
             case 3:
                 System.out.println("Ingrese nuevo apellido del Cliente: ");
                 String nuevoApellido = sc.nextLine();
-                clienteEncontrado.setApellidoCliente(nuevoApellido);
-                Utilidad.mensaje(ColorConsola.TEXTO_VERDE + "Dato modificado correctamente");
+                clienteServicio.editarCliente(clienteEncontrado, nuevoApellido, 3);
                 break;
             case 4:
                 System.out.println("Ingrese nueva antigüedad del Cliente: ");
-                String nuevoAntiguedad = sc.nextLine();
-                clienteEncontrado.setAnioCliente(nuevoAntiguedad);
-                Utilidad.mensaje(ColorConsola.TEXTO_VERDE + "Dato modificado correctamente");
+                String nuevaAntiguedad = sc.nextLine();
+                clienteServicio.editarCliente(clienteEncontrado, nuevaAntiguedad, 4);
                 break;
         }
     }
