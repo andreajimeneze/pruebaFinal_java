@@ -11,12 +11,9 @@ import java.util.Scanner;
 
 @Data
 public class ArchivoServicio {
-//    Scanner sc = new Scanner(System.in);
-    String ruta = "C:/Users/andre/Desktop/";
-
     public void cargarDatos(String fileName, List<Cliente> listaClientes, Scanner sc)  {
         Utilidad.mensaje(ColorConsola.TEXTO_AMARILLO + "---------Cargar Datos según Sistema Operativo-----------");
-        System.out.println(ColorConsola.TEXTO_DEFAULT + "Ingresa la ruta donde se encuentra el archivo DBClientes.csv");
+        System.out.println(ColorConsola.TEXTO_DEFAULT + "Ingresa la ruta donde se encuentra el archivo DBClientes.csv:");
         String ruta = Utilidad.generarRutaPorOS(sc);
         String archivo = ruta + fileName;
 
@@ -33,7 +30,7 @@ public class ArchivoServicio {
             }
             Utilidad.mensaje(ColorConsola.TEXTO_VERDE + "Clientes cargados correctamente");
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            Utilidad.mensaje(ColorConsola.TEXTO_ROJO + "El sistema no puede encontrar la ruta especificada");
         }
     }
     public void exportar(String fileName, List<Cliente> listaClientes,int opcion) throws IOException {

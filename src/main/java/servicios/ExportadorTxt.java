@@ -13,35 +13,35 @@ import java.util.Scanner;
 
 public class ExportadorTxt extends Exportador {
     Scanner sc = new Scanner(System.in);
+
     @Override
     public void exportar(String fileName, List<Cliente> listaClientes) throws IOException {
-        if(listaClientes.isEmpty()) {
-            Utilidad.mensaje(ColorConsola.TEXTO_ROJO + "No se puede guardar una lista vacía");
-        } else {
+        if(!listaClientes.isEmpty()) {
             System.out.println(ColorConsola.TEXTO_DEFAULT + "Ingresa la ruta donde quiere guardar el archivo:");
             String ruta = Utilidad.generarRutaPorOS(sc);
 
-            File archivo = new File(ruta + fileName.concat(".txt"));
-
-            if (!archivo.exists() || !archivo.canWrite()) {
-                Utilidad.mensaje(ColorConsola.TEXTO_ROJO + "Error: La ruta del archivo es inválida o no tiene permisos de escritura.");
-                return;
-            }
-
-            Utilidad.crearArchivo(archivo);
-
-            try (FileWriter fw = new FileWriter(archivo);
-                 BufferedWriter bf = new BufferedWriter(fw);) {
-                if(archivo.exists() && !listaClientes.isEmpty()) {
-                    for(int i = 0; i < listaClientes.size(); i++) {
-                        bf.write(listaClientes.get(i).toString());
-                        bf.newLine();
+            if (ruta == null) {
+                Utilidad.mensaje(ColorConsola.TEXTO_ROJO + "Error: La ruta del archivo es inválida");
+            } else {
+                File archivo = new File(ruta + fileName.concat(".txt"));
+                Utilidad.crearArchivo(archivo);
+                try (FileWriter fw = new FileWriter(archivo);
+                     BufferedWriter bf = new BufferedWriter(fw);) {
+                    if (archivo.exists()) {
+                        for (int i = 0; i < listaClientes.size(); i++) {
+                            bf.write(listaClientes.get(i).toString());
+                            bf.newLine();
+                        }
+                        Utilidad.mensaje(ColorConsola.TEXTO_VERDE + "Archivo .TXT creado con éxito");
                     }
-                    Utilidad.mensaje(ColorConsola.TEXTO_VERDE +  "Archivo .TXT creado con éxito");
+                } catch (Exception e) {
+                    Utilidad.mensaje(ColorConsola.TEXTO_ROJO + e.getMessage());
                 }
-            } catch(Exception e) {
-                System.out.println(e.getMessage());
             }
-        }
+        } else {
+            Utilidad.mensaje(ColorConsola.TEXTO_ROJO + "No se puede guardar una lista vacía");
+            }
     }
 }
+
+

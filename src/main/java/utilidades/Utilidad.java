@@ -40,6 +40,10 @@ public class Utilidad {
 
         try {
             String textoRuta = sc.nextLine();
+
+            if (textoRuta == null || textoRuta.isEmpty()) {
+                return null;
+            }
             String[] arrayRuta = textoRuta.split("/");
 
             if (sistemaOperativo.startsWith("Win")) {
@@ -54,10 +58,18 @@ public class Utilidad {
             }
 
             ruta = directorioRuta.toString();
+            File directorio = new File(ruta);
+            if (!directorio.exists() || !directorio.isDirectory()) {
+                System.out.println("Error: La ruta especificada no existe o no es un directorio.");
+                return null;
+            }
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println(ColorConsola.TEXTO_ROJO + e.getMessage());
         }
         return ruta;
     }
 }
+
+
+

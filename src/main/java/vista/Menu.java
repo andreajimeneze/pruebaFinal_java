@@ -4,8 +4,6 @@ import modelos.CategoriaEnum;
 import modelos.Cliente;
 import servicios.ArchivoServicio;
 import servicios.ClienteServicio;
-import servicios.ExportadorCsv;
-import servicios.ExportadorTxt;
 import utilidades.ColorConsola;
 import utilidades.Utilidad;
 import java.io.IOException;
@@ -36,14 +34,15 @@ public class Menu {
                 opcion = sc.nextInt();
                 sc.nextLine();
             } catch (Exception e) {
-                System.out.println(ColorConsola.TEXTO_ROJO + "Error: Debe ingresar un valor numérico");
+                Utilidad.mensaje(ColorConsola.TEXTO_ROJO + "Error: Debe ingresar un valor numérico");
                 sc.next();
             }
             System.out.println();
         } while (opcion < 1 || opcion > 6);
 
-            ejecutarMenu(opcion);
+        ejecutarMenu(opcion);
     }
+
     public void ejecutarMenu(int opcion) throws IOException, InterruptedException {
         switch (opcion) {
             case 1:
@@ -84,9 +83,10 @@ public class Menu {
         if (clienteServicio.getListaClientes().contains(clienteAAgregar)) {
             Utilidad.mensaje(ColorConsola.TEXTO_ROJO + "No se puede agregar cliente. Run ya existe");
             agregarCliente();
+        } else if (run.isEmpty()) {
+            Utilidad.mensaje(ColorConsola.TEXTO_ROJO + "No se puede agregar cliente sin RUN");
         } else {
-
-            System.out.println("Ingresa Nombre del Cliente: ");
+            System.out.println(ColorConsola.TEXTO_DEFAULT + "Ingresa Nombre del Cliente: ");
             String nombre = sc.nextLine();
             System.out.println("Ingresa Apellido del Cliente: ");
             String apellido = sc.nextLine();
@@ -94,11 +94,16 @@ public class Menu {
             String antiguedad = sc.nextLine();
 
             System.out.println();
-            Cliente clienteAgregado = new Cliente(run, nombre, apellido, antiguedad, CategoriaEnum.ACTIVO);
 
-            clienteServicio.agregarCliente(clienteAgregado);
+            if (!nombre.isEmpty() && !apellido.isEmpty()) {
+                Cliente clienteAgregado = new Cliente(run, nombre, apellido, antiguedad, CategoriaEnum.ACTIVO);
+                clienteServicio.agregarCliente(clienteAgregado);
+            } else {
+                Utilidad.mensaje(ColorConsola.TEXTO_ROJO + "No se puede agregar cliente sin datos");
+            }
         }
     }
+
 
     public void editarCliente() {
         int opcion = 0;
@@ -150,7 +155,7 @@ public class Menu {
             System.out.println();
 
             try {
-                System.out.println("Ingrese una opción: ");
+                System.out.println(ColorConsola.TEXTO_DEFAULT + "Ingrese una opción: ");
                 opcion = sc.nextInt();
             } catch(Exception e) {
                 Utilidad.mensaje(ColorConsola.TEXTO_ROJO + "Error: Debe ingresar un valor numérico");
@@ -164,6 +169,8 @@ public class Menu {
             } else if (opcion == 2) {
                 clienteEncontrado.setCategoria(CategoriaEnum.ACTIVO);
                 Utilidad.mensaje(ColorConsola.TEXTO_VERDE + "Dato modificado con éxito");
+            } else {
+                Utilidad.mensaje(ColorConsola.TEXTO_ROJO + "Error: Debe ingresar un valor");
             }
     }
 

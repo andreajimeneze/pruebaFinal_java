@@ -30,6 +30,8 @@ public class ClienteServicio {
         if(cliente != null) {
             listaClientes.add(cliente);
             Utilidad.mensaje(ColorConsola.TEXTO_VERDE + "Cliente agregado exitosamente");
+        } else {
+            Utilidad.mensaje(ColorConsola.TEXTO_ROJO + "No se puede agregar cliente sin datos");
         }
     }
 
