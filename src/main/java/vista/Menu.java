@@ -68,7 +68,7 @@ public class Menu {
             case 6:
                 System.out.println("Saliendo del programa ...");
                 Utilidad.delay(1400);
-                Utilidad.limpiarPantalla();
+                Utilidad.limpiarConsola();
                 System.out.println("Ha salido del programa");
                 break;
         }
