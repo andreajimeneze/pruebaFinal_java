@@ -19,11 +19,12 @@ public class ExportadorTxt extends Exportador {
         if(!listaClientes.isEmpty()) {
             System.out.println(ColorConsola.TEXTO_DEFAULT + "Ingresa la ruta donde quiere guardar el archivo:");
             String ruta = Utilidad.generarRutaPorOS(sc);
+            String extension = ".txt";
 
             if (ruta == null) {
                 Utilidad.mensaje(ColorConsola.TEXTO_ROJO + "Error: La ruta del archivo es inválida");
             } else {
-                File archivo = new File(ruta + fileName.concat(".txt"));
+                File archivo = new File(ruta + fileName.concat(extension));
                 Utilidad.crearArchivo(archivo);
                 try (FileWriter fw = new FileWriter(archivo);
                      BufferedWriter bf = new BufferedWriter(fw);) {
@@ -41,6 +42,8 @@ public class ExportadorTxt extends Exportador {
         } else {
             Utilidad.mensaje(ColorConsola.TEXTO_ROJO + "No se puede guardar una lista vacía");
             }
+
+
     }
 }
 

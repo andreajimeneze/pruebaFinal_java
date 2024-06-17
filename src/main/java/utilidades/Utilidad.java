@@ -2,6 +2,7 @@ package utilidades;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Utilidad {
@@ -59,6 +60,7 @@ public class Utilidad {
                 return null;
             }
             String[] arrayRuta = textoRuta.split("/");
+            System.out.println(Arrays.stream(arrayRuta));
 
             if (sistemaOperativo.startsWith("Win")) {
                 separadorDir = "\\";

@@ -21,7 +21,7 @@ public class ClienteServicio {
                 System.out.println(ColorConsola.TEXTO_VERDE + "RUN del cliente: " + cliente.getRunCliente());
                 System.out.println("Nombre del cliente: " + cliente.getNombreCliente());
                 System.out.println("Apellido del cliente: " + cliente.getApellidoCliente());
-                System.out.println("Años como cliente: " + cliente.getAnioCliente());
+                System.out.println("Años como cliente: " + cliente.getAnioCliente() + " años");
                 System.out.println("Estado del cliente: " + cliente.getCategoria());
                 System.out.println();
             }

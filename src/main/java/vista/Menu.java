@@ -4,6 +4,8 @@ import modelos.CategoriaEnum;
 import modelos.Cliente;
 import servicios.ArchivoServicio;
 import servicios.ClienteServicio;
+import servicios.ExportadorCsv;
+import servicios.ExportadorTxt;
 import utilidades.ColorConsola;
 import utilidades.Utilidad;
 import java.io.IOException;
@@ -12,6 +14,8 @@ import java.util.Scanner;
 public class Menu {
     ClienteServicio clienteServicio = new ClienteServicio();
     ArchivoServicio archivoServicio = new ArchivoServicio();
+    ExportadorCsv expCsv = new ExportadorCsv();
+    ExportadorTxt expTxt = new ExportadorTxt();
     Scanner sc = new Scanner(System.in);
     String FILE_NAME = "Clientes";
     String FILE_NAME_1 = "DBClientes.csv";
@@ -182,7 +186,7 @@ public class Menu {
             System.out.println(ColorConsola.TEXTO_VERDE + "1.-El RUN del Cliente es: " + clienteEncontrado.getRunCliente());
             System.out.println("2.-El nombre del Cliente es: " + clienteEncontrado.getNombreCliente());
             System.out.println("3.-El apellido del Cliente es: " + clienteEncontrado.getApellidoCliente());
-            System.out.println("4.-La antigüedad del Cliente es de: " + clienteEncontrado.getAnioCliente() + "años");
+            System.out.println("4.-La antigüedad del Cliente es de: " + clienteEncontrado.getAnioCliente() + " años");
             System.out.println();
 
             try {
@@ -237,7 +241,11 @@ public class Menu {
             }
         } while(opcion < 1 || opcion > 2);
 
-            archivoServicio.exportar(FILE_NAME, clienteServicio.getListaClientes(), opcion);
+        if(opcion == 1) {
+            expCsv.exportar(FILE_NAME, clienteServicio.getListaClientes());
+        } else if (opcion == 2) {
+            expTxt.exportar(FILE_NAME, clienteServicio.getListaClientes());
+        }
     }
 }
 

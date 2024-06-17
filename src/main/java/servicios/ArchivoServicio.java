@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Scanner;
 
 @Data
-public class ArchivoServicio {
+public class ArchivoServicio extends Exportador{
     public void cargarDatos(String fileName, List<Cliente> listaClientes, Scanner sc)  {
         Utilidad.mensaje(ColorConsola.TEXTO_AMARILLO + "---------Cargar Datos según Sistema Operativo-----------");
         System.out.println(ColorConsola.TEXTO_DEFAULT + "Ingresa la ruta donde se encuentra el archivo DBClientes.csv:");
@@ -33,14 +33,8 @@ public class ArchivoServicio {
             Utilidad.mensaje(ColorConsola.TEXTO_ROJO + "El sistema no puede encontrar la ruta especificada");
         }
     }
-    public void exportar(String fileName, List<Cliente> listaClientes,int opcion) throws IOException {
-        ExportadorTxt exTXT = new ExportadorTxt();
-        ExportadorCsv exCSV = new ExportadorCsv();
+   @Override
+    public void exportar(String fileName, List<Cliente> listaClientes) {
 
-        if(opcion == 1) {
-            exCSV.exportar(fileName, listaClientes);
-        } else if (opcion == 2) {
-            exTXT.exportar(fileName, listaClientes);
-        }
     }
 }

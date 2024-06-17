@@ -22,11 +22,12 @@ public class ExportadorCsv extends Exportador {
 
             System.out.println(ColorConsola.TEXTO_DEFAULT + "Ingresa la ruta donde quiere guardar el archivo:");
             String ruta = Utilidad.generarRutaPorOS(sc);
+            String extension = ".csv";
 
             if (ruta == null) {
                 Utilidad.mensaje(ColorConsola.TEXTO_ROJO + "Error: La ruta del archivo es inválida");
             } else {
-                File archivo = new File(ruta + fileName.concat(".csv"));
+                File archivo = new File(ruta + fileName.concat(extension));
                 Utilidad.crearArchivo(archivo);
 
                 try (FileWriter fw = new FileWriter(archivo);
